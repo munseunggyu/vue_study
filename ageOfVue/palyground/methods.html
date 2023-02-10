@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <form>
+        <!-- 실행 안됨 -->
+        <input-box v-on:keyup="logText"></input-box>
+
+        <input type="text" v-on:keyup="logText" />
+        <btn v-on:evt="clickEvt"></btn>
+        <p>Message is: {{ message }}</p>
+        <input v-model="message" placeholder="edit me" />
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      let inputBox = {
+        template: '<input type="text" />',
+      };
+      let btn = {
+        template: "<button type='button' v-on:click='clickEvt' >click</button>",
+        methods: {
+          clickEvt: function () {
+            this.$emit("evt");
+          },
+        },
+      };
+      new Vue({
+        el: "#app",
+        components: {
+          "input-box": inputBox,
+          btn: btn,
+        },
+        data: {
+          message: "",
+        },
+        methods: {
+          clickEvt: function () {
+            console.log("hey");
+          },
+          logText: function () {
+            console.log("ns");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
