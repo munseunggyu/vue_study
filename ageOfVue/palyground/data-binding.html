@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    #text-red {
+      color: red;
+    }
+    .text-blue {
+      color: blue;
+    }
+  </style>
+  <body>
+    <div id="app">
+      <p v-bind:id="uuid">{{num}}</p>
+      <strong v-bind:class="className"> {{doubleNum}} </strong>
+      <!-- if문은 요소에서 사라진다. -->
+      <div v-if="loading">...Loading</div>
+      <div v-else="loading">test user has been logged in</div>
+      <!-- show는 display:none이 된다. -->
+      <div v-show="loading">...Loading</div>
+      <app-btn v-on:load="isLoading"></app-btn>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      let Btn = {
+        template: "<button v-on:click='loadingClick' >click</button>",
+        methods: {
+          loadingClick: function () {
+            this.$emit("load");
+          },
+        },
+      };
+      new Vue({
+        el: "#app",
+        data: {
+          num: 10,
+          // doubleNum: 10 * 2 x
+          uuid: "text-red",
+          className: "text-blue",
+          loading: true,
+        },
+        components: {
+          "app-btn": Btn,
+        },
+        computed: {
+          doubleNum: function () {
+            return this.num * 2;
+          },
+        },
+        methods: {
+          isLoading: function () {
+            this.loading = !this.loading;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
