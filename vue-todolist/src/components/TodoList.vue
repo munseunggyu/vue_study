@@ -29,7 +29,9 @@ export default {
   // 라이플 사이클 생성되는 시점에 실행
   created: function () {
     let localItem = JSON.parse(localStorage.getItem("todo"));
-    this.todoItems = [...localItem];
+    if (localItem) {
+      this.todoItems = [...localItem];
+    }
   },
   methods: {
     removeTodo: function (id) {
