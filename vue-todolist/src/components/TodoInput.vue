@@ -14,14 +14,15 @@ export default {
   },
   methods: {
     addTodo: function () {
-      console.log(this.task);
-      localStorage.setItem(
-        "todo",
-        JSON.stringify({
-          task: this.task,
-          id: new Date(),
-        })
-      );
+      let localItem = JSON.parse(localStorage.getItem("todo"));
+
+      localItem.push({
+        task: this.task,
+        id: new Date(),
+        isCompleted: true,
+      });
+      console.log(localItem);
+      localStorage.setItem("todo", JSON.stringify(localItem));
       this.clearInput();
     },
     clearInput: function () {
@@ -40,17 +41,22 @@ input:focus {
   height: 50px;
   line-height: 50px;
   border-radius: 5px;
+  display: flex;
 }
 .inputBox input {
   border-style: none;
   font-size: 0.9rem;
+  width: 100%;
+  height: 100%;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  text-align: center;
 }
 .addBtn {
   border: 0;
   border-radius: 0 5px 5px 0;
   width: 3rem;
   height: 100%;
-  float: right;
   font-size: 2rem;
   color: white;
   background: #6478fb;
