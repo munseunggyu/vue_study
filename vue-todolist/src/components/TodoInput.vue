@@ -2,19 +2,33 @@
   <form class="inputBox shadow" v-on:submit.prevent="addTodo">
     <input type="text" v-model="task" />
     <button class="addBtn">+</button>
+    <AlertModalVue v-if="showModal" @close="showModal = false">
+      <h3 slot="header">할 일을 입력해 주세요.</h3>
+      <span slot="body">Yes</span>
+      <!-- <span slot="footer" >No</span> -->
+    </AlertModalVue>
   </form>
 </template>
 
 <script>
+import AlertModalVue from "./common/AlertModal.vue";
+
 export default {
   data() {
     return {
       task: "",
+      showModal: false,
     };
   },
+
   methods: {
     addTodo: function () {
-      this.$emit("addTodoItem", this.task);
+      if (this.task === "") {
+        this.showModal = !this.showModal;
+      } else {
+        this.$emit("addTodoItem", this.task);
+        this.clearInput();
+      }
       // let localItem = JSON.parse(localStorage.getItem("todo"));
       // const todo = {
       //   task: this.task,
@@ -28,11 +42,13 @@ export default {
       // }
       // console.log(localItem);
       // localStorage.setItem("todo", JSON.stringify(localItem));
-      this.clearInput();
     },
     clearInput: function () {
       this.task = "";
     },
+  },
+  components: {
+    AlertModalVue,
   },
 };
 </script>
