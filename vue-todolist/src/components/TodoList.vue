@@ -1,8 +1,8 @@
 <template>
-  <ul>
+  <transition-group name="list" tag="ul">
     <li
       class="shadow"
-      v-for="{ task, id, isCompleted } in propsdata"
+      v-for="{ task, id, isCompleted } in this.$store.state.todoItems"
       v-bind:key="id"
     >
       <button
@@ -15,23 +15,25 @@
       </span>
       <button class="removeBtn" v-on:click="delItem(id)">x</button>
     </li>
-  </ul>
+  </transition-group>
 </template>
 
 <script>
 export default {
   props: ["propsdata"],
   methods: {
-    delItem: function (id) {
+    delItem(id) {
       // const newTodo = this.todoItems.filter((todo) => {
       //   return todo.id !== id;
       // });
       // this.todoItems = newTodo;
       // localStorage.setItem("todo", JSON.stringify(newTodo));
-      this.$emit("delItem", id);
+      // this.$emit("delItem", id);
+      this.$store.commit("delItem", id);
     },
-    toggleCom: function (id) {
-      this.$emit("toggleCom", id);
+    toggleCom(id) {
+      // this.$emit("toggleCom", id);
+      this.$store.commit("toggleCom", id);
       // isCompleted = !isCompleted;
       // console.log(isCompleted);
       // const newTodo = this.todoItems.map((todo) => {
@@ -100,5 +102,14 @@ li {
   font-size: 2rem;
   color: white;
   background: #6478fb;
+}
+/* list item transition effect */
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>

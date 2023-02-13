@@ -22,11 +22,12 @@ export default {
   },
 
   methods: {
-    addTodo: function () {
+    addTodo() {
       if (this.task === "") {
         this.showModal = !this.showModal;
       } else {
-        this.$emit("addTodoItem", this.task);
+        // this.$emit("addTodoItem", this.task);
+        this.$store.commit("addOneItem", this.task);
         this.clearInput();
       }
       // let localItem = JSON.parse(localStorage.getItem("todo"));
@@ -43,7 +44,7 @@ export default {
       // console.log(localItem);
       // localStorage.setItem("todo", JSON.stringify(localItem));
     },
-    clearInput: function () {
+    clearInput() {
       this.task = "";
     },
   },

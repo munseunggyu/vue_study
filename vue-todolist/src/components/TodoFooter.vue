@@ -7,10 +7,10 @@
 <script>
 export default {
   methods: {
-    clearTodo: function () {
+    clearTodo() {
       // localStorage.removeItem("todo");
-      // console.log("sd");
-      this.$emit("clearAll");
+      // this.$emit("clearAll");
+      this.$store.commit("clearAllItems");
     },
   },
 };
