@@ -2,60 +2,49 @@
   <ul>
     <li
       class="shadow"
-      v-for="{ task, id, isCompleted } in todoItems"
+      v-for="{ task, id, isCompleted } in propsdata"
       v-bind:key="id"
     >
       <button
         class="checkBtn"
         v-bind:class="{ checkBtnCompleted: isCompleted }"
-        v-on:click="todoCompleted(id, isCompleted)"
+        v-on:click="toggleCom(id)"
       ></button>
       <span v-bind:class="{ textCompleted: isCompleted }">
         {{ task }}
       </span>
-      <button class="removeBtn" v-on:click="removeTodo(id)">x</button>
+      <button class="removeBtn" v-on:click="delItem(id)">x</button>
     </li>
   </ul>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      todoItems: [],
-    };
-  },
-
-  // 라이플 사이클 생성되는 시점에 실행
-  created: function () {
-    let localItem = JSON.parse(localStorage.getItem("todo"));
-    if (localItem) {
-      this.todoItems = [...localItem];
-    }
-  },
+  props: ["propsdata"],
   methods: {
-    removeTodo: function (id) {
-      const newTodo = this.todoItems.filter((todo) => {
-        return todo.id !== id;
-      });
-      this.todoItems = newTodo;
-      localStorage.setItem("todo", JSON.stringify(newTodo));
+    delItem: function (id) {
+      // const newTodo = this.todoItems.filter((todo) => {
+      //   return todo.id !== id;
+      // });
+      // this.todoItems = newTodo;
+      // localStorage.setItem("todo", JSON.stringify(newTodo));
+      this.$emit("delItem", id);
     },
-    todoCompleted: function (id, isCompleted) {
-      isCompleted = !isCompleted;
-      console.log(isCompleted);
-      const newTodo = this.todoItems.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            isCompleted: !todo.isCompleted,
-          };
-        } else {
-          return todo;
-        }
-      });
-      console.log(newTodo);
-      localStorage.setItem("todo", JSON.stringify(newTodo));
+    toggleCom: function (id) {
+      this.$emit("toggleCom", id);
+      // isCompleted = !isCompleted;
+      // console.log(isCompleted);
+      // const newTodo = this.todoItems.map((todo) => {
+      //   if (todo.id === id) {
+      //     return {
+      //       ...todo,
+      //       isCompleted: !todo.isCompleted,
+      //     };
+      //   } else {
+      //     return todo;
+      //   }
+      // });
+      // localStorage.setItem("todo", JSON.stringify(newTodo));
     },
   },
 };

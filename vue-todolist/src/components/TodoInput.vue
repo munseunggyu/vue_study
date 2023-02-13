@@ -14,15 +14,20 @@ export default {
   },
   methods: {
     addTodo: function () {
-      let localItem = JSON.parse(localStorage.getItem("todo"));
-
-      localItem.push({
-        task: this.task,
-        id: new Date(),
-        isCompleted: true,
-      });
-      console.log(localItem);
-      localStorage.setItem("todo", JSON.stringify(localItem));
+      this.$emit("addTodoItem", this.task);
+      // let localItem = JSON.parse(localStorage.getItem("todo"));
+      // const todo = {
+      //   task: this.task,
+      //   id: new Date(),
+      //   isCompleted: true,
+      // };
+      // if (localItem) {
+      //   localItem.push(todo);
+      // } else {
+      //   localItem = [todo];
+      // }
+      // console.log(localItem);
+      // localStorage.setItem("todo", JSON.stringify(localItem));
       this.clearInput();
     },
     clearInput: function () {
