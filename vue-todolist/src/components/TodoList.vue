@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   props: ["propsdata"],
@@ -30,32 +30,36 @@ export default {
     ...mapGetters(["storeTodoLen"]),
   },
   methods: {
-    delItem(id) {
-      // const newTodo = this.todoItems.filter((todo) => {
-      //   return todo.id !== id;
-      // });
-      // this.todoItems = newTodo;
-      // localStorage.setItem("todo", JSON.stringify(newTodo));
-      // this.$emit("delItem", id);
-      this.$store.commit("delItem", id);
-    },
-    toggleCom(id) {
-      // this.$emit("toggleCom", id);
-      this.$store.commit("toggleCom", id);
-      // isCompleted = !isCompleted;
-      // console.log(isCompleted);
-      // const newTodo = this.todoItems.map((todo) => {
-      //   if (todo.id === id) {
-      //     return {
-      //       ...todo,
-      //       isCompleted: !todo.isCompleted,
-      //     };
-      //   } else {
-      //     return todo;
-      //   }
-      // });
-      // localStorage.setItem("todo", JSON.stringify(newTodo));
-    },
+    ...mapMutations({
+      delItem: "delItem",
+      toggleCom: "toggleCom",
+    }),
+    // delItem(id) {
+    //   // const newTodo = this.todoItems.filter((todo) => {
+    //   //   return todo.id !== id;
+    //   // });
+    //   // this.todoItems = newTodo;
+    //   // localStorage.setItem("todo", JSON.stringify(newTodo));
+    //   // this.$emit("delItem", id);
+    //   this.$store.commit("delItem", id);
+    // },
+    // toggleCom(id) {
+    //   // this.$emit("toggleCom", id);
+    //   this.$store.commit("toggleCom", id);
+    //   // isCompleted = !isCompleted;
+    //   // console.log(isCompleted);
+    //   // const newTodo = this.todoItems.map((todo) => {
+    //   //   if (todo.id === id) {
+    //   //     return {
+    //   //       ...todo,
+    //   //       isCompleted: !todo.isCompleted,
+    //   //     };
+    //   //   } else {
+    //   //     return todo;
+    //   //   }
+    //   // });
+    //   // localStorage.setItem("todo", JSON.stringify(newTodo));
+    // },
   },
 };
 </script>
