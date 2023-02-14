@@ -2,8 +2,8 @@
   <transition-group name="list" tag="ul">
     <li
       class="shadow"
-      v-for="{ task, id, isCompleted } in this.$store.state.todoItems"
-      v-bind:key="id"
+      v-for="{ task, id, isCompleted } in this.storeTodoLen"
+      v-bind:key="task"
     >
       <button
         class="checkBtn"
@@ -19,8 +19,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   props: ["propsdata"],
+  computed: {
+    // todoItems() {
+    //   return this.$store.getters.storeTodoLen;
+    // },
+    ...mapGetters(["storeTodoLen"]),
+  },
   methods: {
     delItem(id) {
       // const newTodo = this.todoItems.filter((todo) => {

@@ -18,6 +18,11 @@ export const store = new Vuex.Store({
   state: {
     todoItems: storage.fetch(),
   },
+  getters: {
+    storeTodoLen(state) {
+      return state.todoItems;
+    },
+  },
   mutations: {
     addOneItem(state, value) {
       let localItem = JSON.parse(localStorage.getItem("todo"));
