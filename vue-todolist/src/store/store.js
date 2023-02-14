@@ -1,29 +1,33 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import * as getters from "./getters";
-import * as mutations from "./mutations";
+import todoApp from "./modules/todoApp";
+// import * as getters from ./modules/mutations;
+// import * as mutations from "./mutations";
 
 Vue.use(Vuex);
 
-const storage = {
-  fetch() {
-    let localItem = JSON.parse(localStorage.getItem("todo"));
-    console.log(localItem);
-    if (!localItem) {
-      return [];
-    }
-    return localItem;
-  },
-};
+// const storage = {
+//   fetch() {
+//     let localItem = JSON.parse(localStorage.getItem("todo"));
+//     console.log(localItem);
+//     if (!localItem) {
+//       return [];
+//     }
+//     return localItem;
+//   },
+// };
 
 export const store = new Vuex.Store({
-  // data
-  state: {
-    todoItems: storage.fetch(),
+  modules: {
+    todoApp,
   },
-  // computed
-  getters,
+  // data
+  // state: {
+  //   todoItems: storage.fetch(),
+  // },
+  // // computed
+  // getters,
 
-  // methods
-  mutations,
+  // // methods
+  // mutations,
 });
