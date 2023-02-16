@@ -7,18 +7,31 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     news: [],
+    ask: [],
+    jobs: [],
   },
   actions: {
     // 비동기 처리
-    async FETCH_NEWS(context) {
-      const newsData = await fetchList("news/1.json");
-      console.log(newsData);
-      context.commit("SET_NEWS", newsData); // mutation의 SET_NEWS 실행
+    async FETCH_DATA(context, payload) {
+      const data = await fetchList(`${payload}/1.json`);
+      if (payload.includes("news")) {
+        context.commit("SET_NEWS", data); // mutation의 SET_NEWS 실행
+      } else if (payload.includes("ask")) {
+        context.commit("SET_ASK", data);
+      } else if (payload.includes("jobs")) {
+        context.commit("SET_JOBS", data);
+      }
     },
   },
   mutations: {
-    SET_NEWS(state, data) {
-      state.news = data;
+    SET_NEWS(state, newsData) {
+      state.news = newsData;
+    },
+    SET_ASK(state, askData) {
+      state.ask = askData;
+    },
+    SET_JOBS(state, jobsData) {
+      state.jobs = jobsData;
     },
   },
 });

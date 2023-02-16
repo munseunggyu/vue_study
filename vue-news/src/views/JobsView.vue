@@ -1,20 +1,16 @@
 <template>
-  <div>jobs</div>
+  <div>
+    <div v-for="jobs in this.$store.state.jobs" v-bind:key="jobs.id">
+      {{ jobs.title }}
+    </div>
+  </div>
 </template>
 
 <script>
-import { fetchList } from "@/api";
-
 export default {
-  data() {
-    return {
-      users: [],
-    };
-  },
   async created() {
-    const newsList = await fetchList("news/1.json");
-    this.users = newsList;
-    console.log(this.users);
+    const currentUrl = this.$route.fullPath;
+    this.$store.dispatch("FETCH_DATA", currentUrl);
   },
 };
 </script>

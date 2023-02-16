@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="news in this.$store.state.news" v-bind:key="news.id">
-      {{ news.user }}
+      {{ news.title }}
     </div>
   </div>
 </template>
@@ -14,7 +14,8 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("FETCH_NEWS");
+    const currentUrl = this.$route.fullPath;
+    this.$store.dispatch("FETCH_DATA", currentUrl);
   },
 };
 </script>
