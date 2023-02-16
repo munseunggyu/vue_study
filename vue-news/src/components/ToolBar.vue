@@ -16,6 +16,7 @@ export default {};
   background-color: #42b883;
   display: flex;
   padding: 8px;
+  gap: 5px;
 }
 .header .router-link-exact-active {
   color: #354953;
