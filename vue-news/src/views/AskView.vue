@@ -1,13 +1,25 @@
 <template>
   <div>
-    <div v-for="ask in this.$store.state.ask" v-bind:key="ask.id">
+    <div v-for="ask in fetchedAsk" v-bind:key="ask.id">
       {{ ask.title }}
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+// import { mapState } from "vuex";
 export default {
+  computed: {
+    // ...mapState({
+    //   ask: (state) => {
+    //     return state.ask;
+    //   },
+    // }),
+    ...mapGetters({
+      fetchedAsk: "fetchedAsk",
+    }),
+  },
   async created() {
     const currentUrl = this.$route.fullPath;
     this.$store.dispatch("FETCH_DATA", currentUrl);

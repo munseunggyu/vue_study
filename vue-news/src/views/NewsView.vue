@@ -1,17 +1,18 @@
 <template>
   <div>
-    <div v-for="news in this.$store.state.news" v-bind:key="news.id">
+    <div v-for="news in fetchedNews" v-bind:key="news.id">
       {{ news.title }}
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  data() {
-    return {
-      users: [],
-    };
+  computed: {
+    ...mapGetters({
+      fetchedNews: "fetchedNews",
+    }),
   },
   created() {
     const currentUrl = this.$route.fullPath;
