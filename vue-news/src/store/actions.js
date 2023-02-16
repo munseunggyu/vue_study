@@ -1,4 +1,4 @@
-import { fetchList } from "@/api";
+import { fetchItem, fetchList, fetchUser } from "@/api";
 
 export default {
   async FETCH_DATA(context, payload) {
@@ -10,5 +10,13 @@ export default {
     } else if (payload.includes("jobs")) {
       context.commit("SET_JOBS", data);
     }
+  },
+  async FETCH_USER(context, payload) {
+    const userData = await fetchUser(payload);
+    context.commit("SET_USER", userData);
+  },
+  async FETCH_ITEM(context, payload) {
+    const itemData = await fetchItem(payload);
+    context.commit("SET_ITEM", itemData);
   },
 };

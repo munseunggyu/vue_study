@@ -1,7 +1,10 @@
 <template>
   <div>
     <div v-for="jobs in fetchedJobs" v-bind:key="jobs.id">
-      {{ jobs.title }}
+      <a :href="jobs.url">
+        {{ jobs.title }}
+      </a>
+      <small> {{ jobs.time_ago }}, {{ jobs.domain }} </small>
     </div>
   </div>
 </template>
