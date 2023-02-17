@@ -26,6 +26,11 @@ import { DetailItem } from "../mixins/DetailItem";
 
 export default {
   components: { UserProfile },
+  data() {
+    return {
+      hi: "FETCH_ITEM",
+    };
+  },
   computed: {
     ...mapGetters({
       fetchItem: "fetchItem",

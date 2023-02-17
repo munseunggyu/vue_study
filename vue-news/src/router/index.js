@@ -6,7 +6,7 @@ import VueRouter from "vue-router";
 import UserView from "../views/UserView.vue";
 import ItemView from "../views/ItemView.vue";
 import createListView from "@/views/CreateListView";
-
+import { store } from "@/store";
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -14,13 +14,18 @@ const router = new VueRouter({
   routes: [
     {
       path: "/",
-
       redirect: "/news",
     },
     {
       path: "/news",
       name: "news",
       component: createListView("NewsView"),
+      beforeEnter: (to, from, next) => {
+        console.log(to);
+        console.log(from);
+        console.log(store.dispatch);
+        next();
+      },
     },
     {
       path: "/ask",
