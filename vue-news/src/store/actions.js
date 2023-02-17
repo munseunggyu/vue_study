@@ -10,13 +10,16 @@ export default {
     } else if (payload.includes("jobs")) {
       context.commit("SET_JOBS", data);
     }
+    return data;
   },
   async FETCH_USER(context, payload) {
     const userData = await fetchUser(payload);
     context.commit("SET_USER", userData);
+    return userData;
   },
   async FETCH_ITEM(context, payload) {
     const itemData = await fetchItem(payload);
     context.commit("SET_ITEM", itemData);
+    return itemData;
   },
 };

@@ -1,9 +1,6 @@
 <template>
   <div>
     <section>
-      <!-- <router-link :to="`/user/${fetchItem.user}`">
-        user: {{ fetchItem.user }}
-      </router-link> -->
       <user-profile :userInfo="fetchItem">
         <div slot="username">username: {{ fetchItem?.user }}</div>
         <template slot="time">
@@ -25,6 +22,7 @@
 <script>
 import { mapGetters } from "vuex";
 import UserProfile from "../components/UserProfile.vue";
+import { DetailItem } from "../mixins/DetailItem";
 
 export default {
   components: { UserProfile },
@@ -33,10 +31,11 @@ export default {
       fetchItem: "fetchItem",
     }),
   },
-  created() {
-    const id = this.$route.params.id;
-    this.$store.dispatch("FETCH_ITEM", id);
-  },
+  mixins: [DetailItem("FETCH_ITEM")],
+  // created() {
+  //   const id = this.$route.params.id;
+  //   this.$store.dispatch("FETCH_ITEM", id);
+  // },
 };
 </script>
 

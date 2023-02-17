@@ -15,6 +15,7 @@
 <script>
 import { mapGetters } from "vuex";
 import UserProfile from "../components/UserProfile.vue";
+import { DetailItem } from "../mixins/DetailItem";
 
 export default {
   components: { UserProfile },
@@ -23,10 +24,11 @@ export default {
       fetchUser: "fetchUser",
     }),
   },
-  created() {
-    const id = this.$route.params.id;
-    this.$store.dispatch("FETCH_USER", id);
-  },
+  mixins: [DetailItem("FETCH_USER")],
+  // created() {
+  //   const id = this.$route.params.id;
+  //   this.$store.dispatch("FETCH_USER", id);
+  // },
 };
 </script>
 
