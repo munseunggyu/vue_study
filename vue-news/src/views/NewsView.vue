@@ -1,31 +1,15 @@
 <template>
   <div>
-    <ul class="news-list">
-      <li v-for="news in fetchedNews" v-bind:key="news.id" class="post">
-        <div class="points">
-          {{ news.points }}
-        </div>
-        <div>
-          <p class="news-title">
-            <a v-bind:href="news.url">
-              {{ news.title }}
-            </a>
-          </p>
-          <small class="link-text">
-            {{ news.time_ago }} by
-            <router-link class="link-text" :to="`/user/${news.user}`">
-              {{ news.user }}
-            </router-link>
-          </small>
-        </div>
-      </li>
-    </ul>
+    <list-item></list-item>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import ListItem from "../components/ListItem.vue";
+
 export default {
+  components: { ListItem },
   computed: {
     ...mapGetters({
       fetchedNews: "fetchedNews",
