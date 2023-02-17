@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { bus } from "@/utils/bus";
 import { mapGetters } from "vuex";
 import ListItem from "../components/ListItem.vue";
 
@@ -16,8 +17,14 @@ export default {
     }),
   },
   created() {
+    bus.$emit("start:spinner");
     const currentUrl = this.$route.fullPath;
-    this.$store.dispatch("FETCH_DATA", currentUrl);
+    this.$store
+      .dispatch("FETCH_DATA", currentUrl)
+      .then(() => {
+        bus.$emit("end:spinner");
+      })
+      .catch((error) => console.log(error));
   },
 };
 </script>

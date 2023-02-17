@@ -1,27 +1,33 @@
 <template>
   <div>
     <section>
-      <div>
-        <div>
-          <router-link :to="`/user/${fetchItem.user}`">
-            user: {{ fetchItem.user }}
-          </router-link>
-        </div>
-        <h2>
-          {{ fetchItem.title }}
-        </h2>
-      </div>
+      <!-- <router-link :to="`/user/${fetchItem.user}`">
+        user: {{ fetchItem.user }}
+      </router-link> -->
+      <user-profile :userInfo="fetchItem">
+        <div slot="username">username: {{ fetchItem?.user }}</div>
+        <template slot="time">
+          {{ fetchItem?.time_ago }}
+        </template>
+      </user-profile>
     </section>
     <section>
-      <div v-html="fetchItem.content"></div>
+      <h2>
+        {{ fetchItem?.title }}
+      </h2>
+    </section>
+    <section>
+      <div v-html="fetchItem?.content"></div>
     </section>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import UserProfile from "../components/UserProfile.vue";
 
 export default {
+  components: { UserProfile },
   computed: {
     ...mapGetters({
       fetchItem: "fetchItem",
