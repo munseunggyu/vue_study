@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 800px"><canvas id="line"></canvas></div>
+  <div style="width: 800px"><canvas ref="line" id="line"></canvas></div>
 </template>
 
 <script>
@@ -7,7 +7,7 @@ import Chart from "chart.js/auto";
 
 export default {
   mounted() {
-    (async function () {
+    (async () => {
       const data = [
         { year: 2010, count: 10 },
         { year: 2011, count: 20 },
@@ -18,7 +18,7 @@ export default {
         { year: 2016, count: 28 },
       ];
 
-      new Chart(document.getElementById("line"), {
+      new Chart(this.$refs.line, {
         type: "line",
         data: {
           labels: data.map((row) => row.year),
