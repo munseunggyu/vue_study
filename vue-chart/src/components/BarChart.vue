@@ -1,13 +1,16 @@
 <template>
-  <div style="width: 800px"><canvas ref="bar" id="acquisitions"></canvas></div>
+  <div style="width: 800px"><canvas ref="bar" id="bar"></canvas></div>
 </template>
 
 <script>
-import Chart from "chart.js/auto";
+// import Chart from "chart.js/auto";
 
 export default {
   mounted() {
-    (async () => {
+    this.renderLineChart();
+  },
+  methods: {
+    renderLineChart() {
       const data = [
         { year: 2010, count: 10 },
         { year: 2011, count: 20 },
@@ -17,8 +20,7 @@ export default {
         { year: 2015, count: 30 },
         { year: 2016, count: 28 },
       ];
-
-      new Chart(this.$refs.bar, {
+      new this.$_Chart(this.$refs.bar, {
         type: "bar",
         data: {
           labels: data.map((row) => row.year),
@@ -30,7 +32,7 @@ export default {
           ],
         },
       });
-    })();
+    },
   },
 };
 </script>
