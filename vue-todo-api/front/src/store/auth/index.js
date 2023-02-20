@@ -3,7 +3,7 @@ import mutations from "./mutations";
 
 export const auth = {
   state: {
-    token: null,
+    token: localStorage.getItem("token") || null,
   },
   mutations,
   actions,

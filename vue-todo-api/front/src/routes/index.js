@@ -25,11 +25,25 @@ const router = new VueRouter({
       path: "/sign",
       name: "sign",
       component: SignView,
+      beforeEnter: (to, from, next) => {
+        if (store.state.auth.token) {
+          next("/");
+        } else {
+          next();
+        }
+      },
     },
     {
       path: "/login",
       name: "login",
       component: LoginView,
+      beforeEnter: (to, from, next) => {
+        if (store.state.auth.token) {
+          next("/");
+        } else {
+          next();
+        }
+      },
     },
   ],
 });
