@@ -2,6 +2,7 @@
   <div>
     <HeaderVue></HeaderVue>
     <router-view></router-view>
+    {{ this.$store.state.auth.auth }}
   </div>
 </template>
 
