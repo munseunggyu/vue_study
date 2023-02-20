@@ -11,6 +11,7 @@ export default {
         }
       );
       commit("SET_USER", response.data.token);
+      return response;
     } catch (error) {
       console.log(error);
     }
@@ -25,6 +26,7 @@ export default {
         }
       );
       commit("SET_USER", response.data.token);
+      return response;
     } catch (error) {
       console.log(error);
     }

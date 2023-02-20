@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h2>ToDoList</h2>
+    <h2>할 일 목록</h2>
     <create-todo></create-todo>
     <select-vue></select-vue>
     <item-list></item-list>

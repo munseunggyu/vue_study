@@ -26,20 +26,22 @@ export default {
   },
   methods: {
     handleSign() {
+      let dispatchName = "";
       if (this.$route.name === "login") {
-        this.$store.dispatch("handleSignIn", {
-          email: this.email,
-          password: this.password,
-        });
+        dispatchName = "handleSignIn";
       } else {
-        this.$store.dispatch("handleSignUp", {
+        dispatchName = "handleSignUp";
+      }
+      this.$store
+        .dispatch(dispatchName, {
           email: this.email,
           password: this.password,
+        })
+        .then(() => {
+          this.email = "";
+          this.password = "";
+          this.$router.push("/");
         });
-      }
-
-      this.email = "";
-      this.password = "";
     },
   },
 };

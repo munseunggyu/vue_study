@@ -4,14 +4,31 @@
       <router-link to="/"> To Do!! </router-link>
     </h1>
     <div class="right">
-      <router-link to="/login">login</router-link>
-      <router-link to="/sign">Sign</router-link>
+      <router-link v-if="!token" to="/login">login</router-link>
+      <router-link v-if="!token" to="/sign">Sign</router-link>
+      <button v-if="token" @click="logout">로그아웃</button>
     </div>
   </header>
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+
+export default {
+  computed: {
+    ...mapState({
+      token: (state) => state.auth.token,
+    }),
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("token");
+      this.$store.commit("logout");
+      alert("로그아웃 되었습니다.");
+      this.$router.push("/login");
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -31,10 +48,18 @@ h1 {
   margin-right: 30px;
   margin-top: 20px;
   padding: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 a {
   margin-left: 8px;
   color: white;
   text-decoration: none;
+}
+button {
+  border: 0;
+  background: transparent;
+  color: white;
 }
 </style>
