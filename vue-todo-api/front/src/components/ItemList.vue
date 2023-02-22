@@ -4,6 +4,7 @@
       <!-- <input type="checkbox" /> -->
       <span> 제목: {{ todo.title }}</span>
       <p>내용: {{ todo.content }}</p>
+      <button @click="deleteTodo(todo.id)">삭제</button>
     </li>
   </ul>
 </template>
@@ -17,6 +18,11 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getTodos");
+  },
+  methods: {
+    deleteTodo(id) {
+      this.$store.dispatch("deleteTodo", id);
+    },
   },
 };
 </script>
