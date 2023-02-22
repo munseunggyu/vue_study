@@ -1,15 +1,12 @@
-import axios from "axios";
+import { api } from "@/api";
 
 export default {
   async handleSignUp({ commit }, { email, password }) {
     try {
-      const response = await axios.post(
-        `${process.env.VUE_APP_API}users/create`,
-        {
-          email,
-          password,
-        }
-      );
+      const response = await api.post(`users/create`, {
+        email,
+        password,
+      });
       commit("SET_USER", response.data.token);
       return response;
     } catch (error) {
@@ -18,13 +15,10 @@ export default {
   },
   async handleSignIn({ commit }, { email, password }) {
     try {
-      const response = await axios.post(
-        `${process.env.VUE_APP_API}users/login`,
-        {
-          email,
-          password,
-        }
-      );
+      const response = await api.post(`users/login`, {
+        email,
+        password,
+      });
       commit("SET_USER", response.data.token);
       return response;
     } catch (error) {
