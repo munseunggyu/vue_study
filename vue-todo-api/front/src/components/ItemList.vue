@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { bus } from "@/utils/bus";
 import { mapState } from "vuex";
 
 export default {
@@ -25,8 +26,10 @@ export default {
     };
   },
   created() {
-    console.log(this.$store.state.todo.category);
-    this.$store.dispatch("getTodos");
+    bus.$emit("start:spinner");
+    this.$store.dispatch("getTodos").then(() => {
+      bus.$emit("end:spinner");
+    });
   },
   methods: {
     deleteTodo(id) {

@@ -2,27 +2,40 @@
   <div>
     <HeaderVue></HeaderVue>
     <router-view></router-view>
-    {{ this.$store.state.auth.auth }}
+    <SpinnerVue :loading="loadingStatue"></SpinnerVue>
   </div>
 </template>
 
 <script>
 import HeaderVue from "./components/HeaderVue.vue";
-
-// import axios from "axios";
+import SpinnerVue from "./components/SpinnerVue.vue";
+import { bus } from "./utils/bus";
 
 export default {
-  // created() {
-  //   console.log(process.env.VUE_APP_API);
-  //   axios
-  //     .post("http://localhost:5500/users/login", {
-  //       email: "e1@naver.com",
-  //       password: "123123aa",
-  //     })
-  //     .then((res) => console.log(res.data));
-  // },
   components: {
     HeaderVue,
+    SpinnerVue,
+  },
+  data() {
+    return {
+      loadingStatue: true,
+    };
+  },
+  methods: {
+    startSpinner() {
+      this.loadingStatue = true;
+    },
+    endSpinner() {
+      this.loadingStatue = false;
+    },
+  },
+  created() {
+    bus.$on("start:spinner", this.startSpinner);
+    bus.$on("end:spinner", this.endSpinner);
+  },
+  beforeDestroy() {
+    bus.$off("start:spinner", this.startSpinner);
+    bus.$off("end:spinner", this.endSpinner);
   },
 };
 </script>

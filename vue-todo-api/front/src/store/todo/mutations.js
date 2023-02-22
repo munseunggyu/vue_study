@@ -6,17 +6,17 @@ export default {
     state.todolist.push(value);
   },
   DEL_TODO(state, id) {
-    state.todolist = state.todolist.filter((v) => v.id !== id);
+    state.todolist = state.todolist.filter((todo) => todo.id !== id);
   },
   TOGGLE_TODO(state, id) {
-    state.todolist = state.todolist.map((v) => {
-      if (v.id === id) {
+    state.todolist = state.todolist.map((todo) => {
+      if (todo.id === id) {
         return {
-          ...v,
-          content: !v.content,
+          ...todo,
+          content: !todo.content,
         };
       } else {
-        return v;
+        return todo;
       }
     });
   },
