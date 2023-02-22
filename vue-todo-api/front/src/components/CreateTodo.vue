@@ -26,7 +26,10 @@ export default {
   },
   methods: {
     handleCreateTodo() {
-      console.log(this.title, this.content);
+      this.$store.dispatch("addTodo", {
+        title: this.title,
+        content: this.content,
+      });
       this.title = "";
       this.content = "";
     },

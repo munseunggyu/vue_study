@@ -1,0 +1,24 @@
+import axios from "axios";
+import { store } from "../index";
+export default {
+  async addTodo(context, { title, content }) {
+    try {
+      const response = await axios.post(
+        `${process.env.VUE_APP_API}todos`,
+        {
+          title,
+          content,
+        },
+        {
+          headers: {
+            Authorization: store.state.auth.token,
+          },
+        }
+      );
+
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+};
