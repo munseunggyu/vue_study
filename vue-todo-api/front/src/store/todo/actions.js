@@ -21,4 +21,16 @@ export default {
       console.log(error);
     }
   },
+  async getTodos({ commit }) {
+    axios
+      .get(`${process.env.VUE_APP_API}todos`, {
+        headers: {
+          Authorization: store.state.auth.token,
+        },
+      })
+      .then((res) => {
+        // console.log(res.data.data);
+        commit("SET_TODOS", res.data.data);
+      });
+  },
 };
