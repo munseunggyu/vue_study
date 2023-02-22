@@ -1,13 +1,13 @@
 import axios from "axios";
 import { store } from "../index";
 export default {
-  async addTodo({ commit }, { title, content }) {
+  async addTodo({ commit }, { title }) {
     try {
       const response = await axios.post(
         `${process.env.VUE_APP_API}todos`,
         {
           title,
-          content,
+          content: false,
         },
         {
           headers: {
@@ -34,8 +34,6 @@ export default {
     }
   },
   async deleteTodo({ commit }, id) {
-    console.log(commit);
-    console.log(id);
     axios
       .delete(`${process.env.VUE_APP_API}todos/${id}`, {
         headers: {
@@ -44,6 +42,24 @@ export default {
       })
       .then(() => {
         commit("DEL_TODO", id);
+      });
+  },
+  async toggleTodo({ commit }, { id, title, content }) {
+    axios
+      .put(
+        `${process.env.VUE_APP_API}todos/${id}`,
+        {
+          title,
+          content: !content,
+        },
+        {
+          headers: {
+            Authorization: store.state.auth.token,
+          },
+        }
+      )
+      .then(() => {
+        commit("TOGGLE_TODO", id);
       });
   },
 };
