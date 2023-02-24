@@ -2,42 +2,14 @@
 
 A Quasar Project
 
-## Install the dependencies
+## Start
 
-```bash
-yarn
-# or
-npm install
-```
+npm i && npm run dev
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### boot파일 사용
 
-```bash
-quasar dev
-```
+- 사용 이유: .quasar/app.js에 플러그인을 추가하거나 글로벌 프로퍼티에 다른 속성을 추가 하고 싶을때 즉, 애플리케이션을 초기화하는 코드를 추가 하고 싶을때
 
-### Lint the files
-
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-### Format the files
-
-```bash
-yarn format
-# or
-npm run format
-```
-
-### Build the app for production
-
-```bash
-quasar build
-```
-
-### Customize the configuration
-
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+1. boot폴더안에 파일 생성
+2. 코드 작성
+3. quasar.config.js에서 boot를 찾은 후 `boot: ['constants']` 처럼 넣어주기
