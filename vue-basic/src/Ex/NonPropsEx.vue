@@ -8,7 +8,7 @@
 export default {
   inheritAttrs:false,
   setup(props,context){
-    console.log(context.attrs)
+    // console.log(context.attrs)
     return{
 
     }
