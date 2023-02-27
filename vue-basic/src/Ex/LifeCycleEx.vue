@@ -14,7 +14,7 @@ export default {
   setup(){
     const inputRef = ref(null)
     onMounted(() => {
-      console.log(inputRef.value)
+      // console.log(inputRef.value)
     })
     return{
       inputRef

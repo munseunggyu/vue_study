@@ -20,6 +20,9 @@
    <!-- provider inject -->
    <provide-inject></provide-inject>
    <life-cycle-ex></life-cycle-ex>
+
+   <!-- script setup -->
+   <script-setup></script-setup>
   </div>
 </template>
 
@@ -30,10 +33,11 @@ import NonPropsEx from './Ex/NonPropsEx.vue';
 import SlotEx from './Ex/SlotEx.vue';
 import ProvideInject from './Ex/ProvideInject.vue';
 import LifeCycleEx from './Ex/LifeCycleEx.vue';
+import ScriptSetup from './Ex/ScriptSetup.vue';
 
 // v-for, v-if는 함께 사용하는 것을 권장하지 않는다.
 export default {
-  components: { VModelEx,NonPropsEx,SlotEx, ProvideInject, LifeCycleEx, },
+  components: { VModelEx,NonPropsEx,SlotEx, ProvideInject, LifeCycleEx,ScriptSetup },
   setup() {
     const providerEx = ref('provide-inject 예시입니다.')
     // provide('key',value)
