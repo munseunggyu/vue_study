@@ -43,15 +43,20 @@ const linksList = [
     icon: 'school',
     to: '/typography',
   },
+  {
+    title: 'colors',
+    caption: 'quasar.dev',
+    icon: 'school',
+    to: '/colors',
+  },
 ];
 </script>
 <script setup>
 import { ref } from 'vue';
 import EssentialLink from 'components/EssentialLink.vue';
-console.log(linksList)
-    const leftDrawerOpen = ref(false);
-    const essentialLinks = linksList
-    const  toggleLeftDrawer = () => {
-      leftDrawerOpen.value = !leftDrawerOpen.value;
-    }
+const leftDrawerOpen = ref(false);
+const essentialLinks = linksList;
+const toggleLeftDrawer = () => {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+};
 </script>
