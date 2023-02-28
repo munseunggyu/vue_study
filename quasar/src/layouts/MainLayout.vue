@@ -44,10 +44,16 @@ const linksList = [
     to: '/typography',
   },
   {
-    title: 'colors',
+    title: 'Colors',
     caption: 'quasar.dev',
     icon: 'school',
     to: '/colors',
+  },
+  {
+    title: 'Spacing',
+    caption: 'quasar.dev',
+    icon: 'school',
+    to: '/spacing',
   },
 ];
 </script>
