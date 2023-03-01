@@ -8,6 +8,10 @@ const routes = [
       { path: 'colors', component: () => import('pages/ColorVue.vue') },
       { path: 'spacing', component: () => import('src/pages/SpacingVue.vue') },
       {
+        path: 'classes-variable',
+        component: () => import('src/pages/ClassesVariable.vue'),
+      },
+      {
         path: 'breakpoints',
         component: () => import('src/pages/BreakpointsVue.vue'),
       },
