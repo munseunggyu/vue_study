@@ -15,6 +15,14 @@ const routes = [
         path: 'breakpoints',
         component: () => import('src/pages/BreakpointsVue.vue'),
       },
+      {
+        path: 'flex-grid-1',
+        component: () => import('src/pages/FlexGrid1.vue'),
+      },
+      {
+        path: 'flex-grid-2',
+        component: () => import('src/pages/FlexGrid2.vue'),
+      },
     ],
   },
 
