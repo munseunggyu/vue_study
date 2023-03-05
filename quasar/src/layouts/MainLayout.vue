@@ -110,3 +110,8 @@ const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 };
 </script>
+<style lang="scss" scoped>
+.q-drawer {
+  width: 240px !important;
+}
+</style>
