@@ -1,5 +1,5 @@
 <template>
-  <RouterView></RouterView>
+  <div class="hey">Home</div>
 </template>
 
 <script setup></script>
