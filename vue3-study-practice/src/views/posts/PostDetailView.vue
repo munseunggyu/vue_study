@@ -1,8 +1,8 @@
 <template>
   <div class="center">
-    <h2>{{ form.title }}</h2>
-    <p>{{ form.content }}</p>
-    <p class="text-muted">{{ form.createAt }}</p>
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <p class="text-muted">{{ post.createAt }}</p>
     <hr class="my-4" />
     <div class="row g-2">
       <div class="col-auto">
@@ -21,22 +21,24 @@
         </button>
       </div>
       <div class="col-auto">
-        <button class="btn btn-outline-danger">삭제</button>
+        <button class="btn btn-outline-danger" @click="handledeletePost">
+          삭제
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { getPostById } from "@/api/posts";
+import { deletePost, getPostById } from "@/api/posts";
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 const props = defineProps({
   id: String,
 });
-console.log(props);
+
 const router = useRouter();
-const form = ref({});
+const post = ref({});
 /**
  * ref
  * 장) 한 번에 객체할당 가능
@@ -56,9 +58,9 @@ const goListPage = () => {
   });
 };
 
-const fetchPost = () => {
-  const data = getPostById(props.id);
-  form.value = { ...data };
+const fetchPost = async () => {
+  const data = await getPostById(props.id);
+  post.value = { ...data };
 };
 fetchPost();
 const goEditPage = () => {
@@ -68,6 +70,11 @@ const goEditPage = () => {
       id: props.id,
     },
   });
+};
+
+const handledeletePost = async () => {
+  await deletePost(props.id);
+  goListPage();
 };
 </script>
 

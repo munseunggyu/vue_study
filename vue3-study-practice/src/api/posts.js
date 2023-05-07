@@ -1,34 +1,25 @@
-const posts = [
-  {
-    id: 1,
-    title: "wow1",
-    content: "hey1",
-    createAt: "23",
-  },
-  {
-    id: 2,
-    title: "wow2",
-    content: "hey2",
-    createAt: "23",
-  },
-  {
-    id: 3,
-    title: "wow3",
-    content: "hey3",
-    createAt: "23",
-  },
-  {
-    id: 4,
-    title: "wow4",
-    content: "hey4",
-    createAt: "23",
-  },
-];
+import axios from "axios";
 
-export function getPosts() {
-  return posts;
+const url = "http://localhost:3000/posts";
+export async function getPosts() {
+  const response = await axios.get(url);
+  return response.data;
 }
 
-export function getPostById(id) {
-  return posts.find((item) => item.id + "" === id);
+export async function getPostById(id) {
+  const res = await axios.get(`${url}/${id}`);
+  return res.data;
+}
+
+export async function createPost(data) {
+  const res = await axios.post(url, data);
+  return res.data;
+}
+export async function updatePost(id, data) {
+  const res = await axios.put(`${url}/${id}`, data);
+  return res.data;
+}
+export async function deletePost(id) {
+  const res = await axios.delete(`${url}/${id}`);
+  return res.data;
 }

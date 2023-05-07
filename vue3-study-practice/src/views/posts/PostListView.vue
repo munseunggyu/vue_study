@@ -14,7 +14,7 @@
     </div>
     <hr class="my-4" />
     <AppCard>
-      <PostDetailView :id="'1'"></PostDetailView>
+      <PostDetailView :id="'2'"></PostDetailView>
     </AppCard>
   </div>
 </template>
@@ -30,8 +30,8 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const posts = ref([]);
 
-const fetchPosts = () => {
-  posts.value = getPosts();
+const fetchPosts = async () => {
+  posts.value = await getPosts();
 };
 
 fetchPosts();
