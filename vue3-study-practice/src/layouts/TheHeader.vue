@@ -35,6 +35,11 @@
                 >게시글</RouterLink
               >
             </li>
+            <li class="nav-item">
+              <RouterLink class="nav-link" active-class="active" to="/nested"
+                >Nested</RouterLink
+              >
+            </li>
           </ul>
         </div>
         <div class="d-flex" role="search">
