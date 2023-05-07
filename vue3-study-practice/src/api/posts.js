@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const url = "http://localhost:3000/posts";
-export async function getPosts() {
-  const response = await axios.get(url);
-  return response.data;
+export async function getPosts(params) {
+  const response = await axios.get(url, { params });
+  return response;
 }
 
 export async function getPostById(id) {
