@@ -2,45 +2,23 @@
   <div class="center">
     <h2>게시글 목록</h2>
     <hr class="my-4" />
-    <form @submit.prevent>
-      <div class="row g-3">
-        <div class="col">
-          <input v-model="params.title_like" type="text" class="form-control" />
-        </div>
-      </div>
-    </form>
-    <hr class="my-4" />
-    <div class="row g-3">
-      <div v-for="post in posts" :key="post.id" class="col-4">
-        <PostItem
-          :title="post.title"
-          :content="post.content"
-          :create-at="post.createAt"
-          @click="goPostDeatil(post.id)"
-        ></PostItem>
-      </div>
-    </div>
-    <nav class="mt-3" aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        <li class="page-item" :class="{ disabled: params._page < pageCount }">
-          <a class="page-link" @click.prevent="--params._page">Previous</a>
-        </li>
-        <li
-          v-for="(page, index) in pageCount"
-          :key="page"
-          class="page-item"
-          :class="{ active: params._page === page }"
-        >
-          <button class="page-link" @click="movePage(page)">
-            {{ index + 1 }}
-          </button>
-        </li>
 
-        <li class="page-item" :class="{ disabled: params._page > pageCount }">
-          <a class="page-link" @click.prevent="++params._page" href="#">Next</a>
-        </li>
-      </ul>
-    </nav>
+    <PostFilter @submit.prevent v-model:title="params.title_like"></PostFilter>
+    <hr class="my-4" />
+    <AppGrid v-slot="{ item }" :items="posts">
+      <PostItem
+        :title="item.title"
+        :content="item.content"
+        :create-at="item.createAt"
+        @click="goPostDeatil(item.id)"
+      ></PostItem>
+    </AppGrid>
+    <AppPagination
+      :current-page="params._page"
+      :page-count="pageCount"
+      @page="(page) => (params._page = page)"
+    ></AppPagination>
+
     <hr class="my-4" />
     <AppCard>
       <PostDetailView :id="'2'"></PostDetailView>
@@ -55,14 +33,17 @@ import PostDetailView from "@/views/posts/PostDetailView.vue";
 import { computed, ref, watchEffect } from "vue";
 import { getPosts } from "@/api/posts";
 import { useRouter } from "vue-router";
+import AppPagination from "@/components/AppPagination.vue";
+import AppGrid from "@/components/AppGrid.vue";
+import PostFilter from "@/components/posts/PostFilter.vue";
 
 const router = useRouter();
 const posts = ref([]);
 const params = ref({
   _sort: "createAt",
-  _order: "asc",
+  _order: "desc",
   _limit: 9,
-  _page: 2,
+  _page: 1,
   title_like: "",
 });
 const totalCount = ref(0);
