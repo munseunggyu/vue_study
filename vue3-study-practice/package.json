@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.5",
     "install": "^0.13.0",
     "npm": "^9.6.6",
     "sass": "^1.62.1",

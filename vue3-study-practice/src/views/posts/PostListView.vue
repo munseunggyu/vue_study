@@ -11,6 +11,13 @@
         :content="item.content"
         :create-at="item.createAt"
         @click="goPostDeatil(item.id)"
+        @modal="
+          openModal({
+            title: item.title,
+            content: item.content,
+            createAt: item.createAt,
+          })
+        "
       ></PostItem>
     </AppGrid>
     <AppPagination
@@ -18,6 +25,14 @@
       :page-count="pageCount"
       @page="(page) => (params._page = page)"
     ></AppPagination>
+
+    <PostModal
+      :title="modalTitle"
+      :content="modalContent"
+      :createAt="modalCreateAt"
+      v-model="show"
+      :show="show"
+    />
 
     <hr class="my-4" />
     <AppCard>
@@ -36,6 +51,7 @@ import { useRouter } from "vue-router";
 import AppPagination from "@/components/AppPagination.vue";
 import AppGrid from "@/components/AppGrid.vue";
 import PostFilter from "@/components/posts/PostFilter.vue";
+import PostModal from "./PostModal.vue";
 
 const router = useRouter();
 const posts = ref([]);
@@ -74,6 +90,26 @@ const goPostDeatil = (id) => {
       id,
     },
   });
+};
+
+// modal
+
+const show = ref(false);
+
+const modalTitle = ref("");
+const modalContent = ref("");
+const modalCreateAt = ref("");
+
+const openModal = ({ title, content, createAt }) => {
+  show.value = true;
+
+  modalTitle.value = title;
+  modalContent.value = content;
+  modalCreateAt.value = createAt;
+};
+
+const closeModal = () => {
+  show.value = false;
 };
 </script>
 

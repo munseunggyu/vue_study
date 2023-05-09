@@ -5,6 +5,7 @@
     <p class="text-muted">
       {{ createAt }}
     </p>
+    <button @click.stop="$emit('modal')">😎</button>
   </AppCard>
 </template>
 
@@ -23,6 +24,8 @@ defineProps({
     type: [String, Date, Number],
   },
 });
+
+defineEmits(["modal"]);
 </script>
 
 <style lang="scss" scoped></style>
