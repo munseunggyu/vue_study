@@ -7,12 +7,20 @@ import funcPlugin from "./plugins/func";
 import objPlugins from "./plugins/obj";
 import person from "./plugins/person";
 import "bootstrap/dist/js/bootstrap.js";
+import globalComponents from "./plugins/global-components";
+import focus from "./directives/focus";
+import globalDirectives from "./plugins/global-directives";
+import dayjs from "./plugins/dayjs";
 
 const app = createApp(App);
 app.use(objPlugins, "objPlugins options");
 app.use(funcPlugin);
+app.use(globalComponents);
+app.use(dayjs);
 app.use(person, { name: "wow" }); // created 훅에서 사용가능 setup에서 바로 사용 불가, options로 변경함
 app.use(router);
+// app.directive("focus", focus);
+app.use(globalDirectives);
 app.mount("#app");
 
 // console.log("Mode", import.meta.env.MODE);

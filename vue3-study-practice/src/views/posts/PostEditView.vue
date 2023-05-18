@@ -20,7 +20,6 @@
         </div>
       </template>
     </PostForm>
-    <AppAlert :show="showAlert" :message="message" :type-alert="alertType" />
   </div>
 </template>
 
@@ -29,44 +28,31 @@ import { getPostById, updatePost } from "@/api/posts";
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import PostForm from "./PostForm.vue";
-import AppAlert from "@/components/AppAlert.vue";
-
+import { useAlert } from "../../hooks/useAlert";
 const route = useRoute();
 const router = useRouter();
 const id = route.params.id;
+const { vSuccess } = useAlert();
 const goDetailPage = () => router.push({ name: "PostDetail", params: { id } });
 const form = ref({
   title: null,
   content: null,
 });
-const message = ref("");
-const alertType = ref("error");
 const fetchPost = async () => {
   try {
     const data = await getPostById(id);
     form.value = { ...data };
   } catch (error) {
-    vAlert("에러발생");
+    console.log(error);
   }
 };
 const setUpdatePost = () => {
   const data = { ...form.value, createAt: new Date() };
   updatePost(id, data);
-  vAlert("수정되었습니다.", "success");
-  // goDetailPage();
+  vSuccess("수정되었습니다.");
+  goDetailPage();
 };
 fetchPost();
-
-const showAlert = ref(false);
-
-const vAlert = (msg, type = "error") => {
-  showAlert.value = true;
-  message.value = msg;
-  alertType.value = type;
-  setTimeout(() => {
-    showAlert.value = false;
-  }, 2000);
-};
 </script>
 
 <style lang="scss" scoped></style>

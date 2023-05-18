@@ -4,8 +4,8 @@ const objPlugins = {
     // app.config.globalProperties 전역 애플리케이션 인스턴스에 속성 추가
     // app.directive 커스텀 디렉티브
     // app.provide 다양한 리소스를 자식컴포넌트에서 사용가능
-    console.log("obj", app);
-    console.log("objopt", options);
+    // console.log("obj", app);
+    // console.log("objopt", options);
   },
 };
 

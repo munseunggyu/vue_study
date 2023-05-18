@@ -36,20 +36,17 @@
 
     <hr class="my-4" />
     <AppCard>
-      <PostDetailView :id="'2'"></PostDetailView>
+      <PostDetailView :id="'4'"></PostDetailView>
     </AppCard>
   </div>
 </template>
 
 <script setup>
 import PostItem from "@/components/posts/PostItem.vue";
-import AppCard from "@/components/AppCard.vue";
 import PostDetailView from "@/views/posts/PostDetailView.vue";
 import { computed, ref, watchEffect } from "vue";
 import { getPosts } from "@/api/posts";
 import { useRouter } from "vue-router";
-import AppPagination from "@/components/AppPagination.vue";
-import AppGrid from "@/components/AppGrid.vue";
 import PostFilter from "@/components/posts/PostFilter.vue";
 import PostModal from "./PostModal.vue";
 
@@ -65,9 +62,13 @@ const params = ref({
 const totalCount = ref(0);
 
 const fetchPosts = async () => {
-  const { data, headers } = await getPosts(params.value);
-  totalCount.value = headers["x-total-count"];
-  posts.value = data;
+  try {
+    const { data, headers } = await getPosts(params.value);
+    totalCount.value = headers["x-total-count"];
+    posts.value = data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // fetchPosts();
@@ -102,10 +103,15 @@ const modalCreateAt = ref("");
 
 const openModal = ({ title, content, createAt }) => {
   show.value = true;
-
   modalTitle.value = title;
   modalContent.value = content;
   modalCreateAt.value = createAt;
+  console.log(
+    show.value,
+    modalTitle.value,
+    modalContent.value,
+    modalCreateAt.value
+  );
 };
 
 const closeModal = () => {

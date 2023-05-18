@@ -8,4 +8,5 @@ function create(baseURL, options) {
   return instance;
 }
 const url = `${import.meta.env.VITE_APP_API_URL}/posts`;
+
 export const posts = create(url);

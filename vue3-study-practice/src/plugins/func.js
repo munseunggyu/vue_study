@@ -1,5 +1,5 @@
 function funcPlugin() {
-  console.log("func");
+  // console.log("func");
 }
 
 export default funcPlugin;

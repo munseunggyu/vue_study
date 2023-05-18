@@ -1,5 +1,10 @@
 <template>
-  <AppModal :title="'게시글'" v-model="show" :show="show" @click="closeModal">
+  <AppModal
+    :title="'게시글'"
+    v-model="showModal"
+    :show="show"
+    @click="closeModal"
+  >
     <template #default>
       <div class="row g-3">
         <div class="col-3">제목</div>
@@ -19,9 +24,8 @@
 </template>
 
 <script setup>
-import AppModal from "@/components/AppModal.vue";
-import { computed } from "vue";
-
+import { computed, watch } from "vue";
+import AppModal from "@/components/app/AppModal.vue";
 const props = defineProps({
   modelVale: Boolean,
   title: String,
@@ -32,7 +36,7 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-const show = computed({
+const showModal = computed({
   get() {
     return props.modelVale;
   },
@@ -42,7 +46,7 @@ const show = computed({
 });
 
 const closeModal = () => {
-  show.value = false;
+  showModal.value = false;
 };
 </script>
 

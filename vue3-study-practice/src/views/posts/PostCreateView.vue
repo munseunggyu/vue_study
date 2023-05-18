@@ -26,10 +26,11 @@
 <script setup>
 import { createPost } from "@/api/posts";
 import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import PostForm from "./PostForm.vue";
-
+import { useAlert } from "../../hooks/useAlert";
 const router = useRouter();
+const { vSuccess } = useAlert();
 const form = ref({
   title: null,
   content: null,
@@ -46,6 +47,7 @@ const save = async () => {
       createAt: new Date(),
     };
     await createPost(data);
+    vSuccess("등록이 되었습니다.");
     goListPage();
   } catch (error) {
     console.log(error);
