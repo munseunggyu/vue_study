@@ -2,6 +2,7 @@
   <div class="center">
     <h2>게시글 등록</h2>
     <hr class="my-4" />
+
     <PostForm
       @submit.prevent="save"
       v-model:title="form.title"
@@ -29,6 +30,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import PostForm from "./PostForm.vue";
 import { useAlert } from "../../hooks/useAlert";
+import { useAxios } from "@/hooks/useAxios";
 const router = useRouter();
 const { vSuccess } = useAlert();
 const form = ref({
@@ -40,18 +42,25 @@ const goListPage = () => {
     name: "PostList",
   });
 };
-const save = async () => {
-  try {
-    const data = {
-      ...form.value,
-      createAt: new Date(),
-    };
-    await createPost(data);
-    vSuccess("등록이 되었습니다.");
-    goListPage();
-  } catch (error) {
-    console.log(error);
+const { err, loading, execute } = useAxios(
+  `/posts`,
+  {
+    method: "post",
+    // data: { ...form.value, createAt: new Date() },
+  },
+  {
+    onSuccess: () => {
+      goListPage();
+      vSuccess("등록이 되었습니다.");
+    },
+    onError: (err) => {
+      console.log(error);
+    },
+    immediate: false,
   }
+);
+const save = async () => {
+  execute({ ...form.value, createAt: new Date() });
 };
 </script>
 

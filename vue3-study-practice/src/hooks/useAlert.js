@@ -3,6 +3,7 @@ const showAlert = ref(false);
 const alertType = ref("error");
 const message = ref("");
 export function useAlert() {
+  const hey = ref("what");
   const vAlert = (msg, type = "error") => {
     showAlert.value = true;
     message.value = msg;
@@ -14,6 +15,7 @@ export function useAlert() {
   const vSuccess = (msg) => vAlert(msg, "success");
 
   return {
+    hey,
     vSuccess,
     vAlert,
     showAlert,

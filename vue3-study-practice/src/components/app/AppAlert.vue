@@ -25,7 +25,6 @@ const props = defineProps({
     default: "error",
   },
 });
-console.log(props.typeAlert);
 const styleClass = computed(() => {
   return props.typeAlert === "error" ? "alert-danger" : "alert-success";
 });

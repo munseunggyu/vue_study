@@ -1,9 +1,11 @@
 <template>
+  <AppLoading v-if="loading" />
+  <AppError v-else-if="err" :message="err" />
   <div class="center">
-    <h2>{{ post.title }}</h2>
-    <p>{{ post.content }}</p>
+    <h2>{{ post?.title }}</h2>
+    <p>{{ post?.content }}</p>
     <p class="text-muted">
-      {{ $dayjs(post.createAt).format("YYYY. MM. DD HH:mm:ss") }}
+      {{ $dayjs(post?.createAt).format("YYYY. MM. DD HH:mm:ss") }}
     </p>
     <hr class="my-4" />
     <div class="row g-2">
@@ -32,15 +34,19 @@
 </template>
 
 <script setup>
-import { deletePost, getPostById } from "@/api/posts";
-import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { deletePost } from "@/api/posts";
+import { useRouter } from "vue-router";
+import AppLoading from "@/components/app/AppLoading.vue";
+import AppError from "@/components/app/AppError.vue";
+import { useAxios } from "@/hooks/useAxios";
+
 const props = defineProps({
   id: String,
 });
 
 const router = useRouter();
-const post = ref({});
+
+const { loading, err, data: post } = useAxios(`posts/${props.id}`);
 /**
  * ref
  * 장) 한 번에 객체할당 가능
@@ -60,11 +66,18 @@ const goListPage = () => {
   });
 };
 
-const fetchPost = async () => {
-  const data = await getPostById(props.id);
-  post.value = { ...data };
-};
-fetchPost();
+// const fetchPost = async () => {
+//   try {
+//     const data = await getPostById(props.id);
+//     post.value = { ...data };
+//   } catch (error) {
+//     console.log(error);
+//     err.value = error;
+//   } finally {
+//     loading.value = false;
+//   }
+// };
+// fetchPost();
 const goEditPage = () => {
   router.push({
     name: "PostEdit",

@@ -46,7 +46,6 @@ defineEmits(["page"]);
 const isPrevPage = computed(() => {
   return { disabled: props.currentPage < props.pageCount };
 });
-
 const isNextPage = computed(() => {
   return { disabled: props.currentPage > props.pageCount };
 });

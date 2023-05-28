@@ -5,27 +5,32 @@
 
     <PostFilter @submit.prevent v-model:title="params.title_like"></PostFilter>
     <hr class="my-4" />
-    <AppGrid v-slot="{ item }" :items="posts">
-      <PostItem
-        :title="item.title"
-        :content="item.content"
-        :create-at="item.createAt"
-        @click="goPostDeatil(item.id)"
-        @modal="
-          openModal({
-            title: item.title,
-            content: item.content,
-            createAt: item.createAt,
-          })
-        "
-      ></PostItem>
-    </AppGrid>
-    <AppPagination
-      :current-page="params._page"
-      :page-count="pageCount"
-      @page="(page) => (params._page = page)"
-    ></AppPagination>
 
+    <AppLoading v-if="loading" />
+    <AppError v-else-if="err" :message="err" />
+
+    <template v-else>
+      <AppGrid v-slot="{ item }" :items="posts">
+        <PostItem
+          :title="item.title"
+          :content="item.content"
+          :create-at="item.createAt"
+          @click="goPostDeatil(item.id)"
+          @modal="
+            openModal({
+              title: item.title,
+              content: item.content,
+              createAt: item.createAt,
+            })
+          "
+        ></PostItem>
+      </AppGrid>
+      <AppPagination
+        :current-page="params._page"
+        :page-count="pageCount"
+        @page="(page) => (params._page = page)"
+      ></AppPagination>
+    </template>
     <PostModal
       :title="modalTitle"
       :content="modalContent"
@@ -35,23 +40,22 @@
     />
 
     <hr class="my-4" />
-    <AppCard>
+    <!-- <AppCard>
       <PostDetailView :id="'4'"></PostDetailView>
-    </AppCard>
+    </AppCard> -->
   </div>
 </template>
 
 <script setup>
 import PostItem from "@/components/posts/PostItem.vue";
 import PostDetailView from "@/views/posts/PostDetailView.vue";
-import { computed, ref, watchEffect } from "vue";
-import { getPosts } from "@/api/posts";
+import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import PostFilter from "@/components/posts/PostFilter.vue";
 import PostModal from "./PostModal.vue";
+import { useAxios } from "@/hooks/useAxios";
 
 const router = useRouter();
-const posts = ref([]);
 const params = ref({
   _sort: "createAt",
   _order: "desc",
@@ -59,30 +63,26 @@ const params = ref({
   _page: 1,
   title_like: "",
 });
-const totalCount = ref(0);
 
-const fetchPosts = async () => {
-  try {
-    const { data, headers } = await getPosts(params.value);
-    totalCount.value = headers["x-total-count"];
-    posts.value = data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-// fetchPosts();
+const totalCount = computed(() => {
+  return response.value.headers["x-total-count"];
+});
+const {
+  response,
+  data: posts,
+  loading,
+  err,
+} = useAxios("/posts", { method: "get", params });
 const pageCount = computed(() => {
   return Math.ceil(totalCount.value / params.value._limit);
 });
 
-// 초기 1회 실행
-watchEffect(fetchPosts);
-
 const movePage = (page) => {
   params.value._page = page;
 };
-
+// onUpdated(() => {
+//   console.log(response.value); // 데이터 변경 후의 값 출력
+// });
 const goPostDeatil = (id) => {
   // router.push(`/posts/${id}`);
   router.push({
@@ -106,12 +106,6 @@ const openModal = ({ title, content, createAt }) => {
   modalTitle.value = title;
   modalContent.value = content;
   modalCreateAt.value = createAt;
-  console.log(
-    show.value,
-    modalTitle.value,
-    modalContent.value,
-    modalCreateAt.value
-  );
 };
 
 const closeModal = () => {
