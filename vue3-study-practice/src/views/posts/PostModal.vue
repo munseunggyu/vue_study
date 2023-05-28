@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { computed, watch } from "vue";
+import { computed, inject, watch } from "vue";
 import AppModal from "@/components/app/AppModal.vue";
 const props = defineProps({
   modelVale: Boolean,
@@ -48,6 +48,9 @@ const showModal = computed({
 const closeModal = () => {
   showModal.value = false;
 };
+
+const staticsMessage = inject("staticsMessage");
+console.log(staticsMessage);
 </script>
 
 <style lang="scss" scoped></style>

@@ -15,6 +15,7 @@
           :title="item.title"
           :content="item.content"
           :create-at="item.createAt"
+          :id="item.id"
           @click="goPostDeatil(item.id)"
           @modal="
             openModal({
@@ -23,6 +24,7 @@
               createAt: item.createAt,
             })
           "
+          @preview="seletedPreview"
         ></PostItem>
       </AppGrid>
       <AppPagination
@@ -39,17 +41,19 @@
       :show="show"
     />
 
-    <hr class="my-4" />
-    <!-- <AppCard>
-      <PostDetailView :id="'4'"></PostDetailView>
-    </AppCard> -->
+    <template v-if="previewId">
+      <hr class="my-4" />
+      <AppCard>
+        <PostDetailView :id="previewId"></PostDetailView>
+      </AppCard>
+    </template>
   </div>
 </template>
 
 <script setup>
 import PostItem from "@/components/posts/PostItem.vue";
 import PostDetailView from "@/views/posts/PostDetailView.vue";
-import { computed, ref } from "vue";
+import { computed, provide, ref } from "vue";
 import { useRouter } from "vue-router";
 import PostFilter from "@/components/posts/PostFilter.vue";
 import PostModal from "./PostModal.vue";
@@ -63,7 +67,8 @@ const params = ref({
   _page: 1,
   title_like: "",
 });
-
+const staticsMessage = "statics msg";
+provide("staticsMessage", staticsMessage);
 const totalCount = computed(() => {
   return response.value.headers["x-total-count"];
 });
@@ -111,6 +116,12 @@ const openModal = ({ title, content, createAt }) => {
 const closeModal = () => {
   show.value = false;
 };
-</script>
 
+const previewId = ref(null);
+const seletedPreview = (id) => {
+  console.log(id);
+  previewId.value = id + "";
+  console.log(previewId.value);
+};
+</script>
 <style lang="scss" scoped></style>

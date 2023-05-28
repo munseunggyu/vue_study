@@ -3,6 +3,7 @@
   <AppError v-else-if="err" :message="err" />
   <div class="center">
     <h2>{{ post?.title }}</h2>
+    <p>id: {{ props.id }}, idOdd: {{ isOdd }}</p>
     <p>{{ post?.content }}</p>
     <p class="text-muted">
       {{ $dayjs(post?.createAt).format("YYYY. MM. DD HH:mm:ss") }}
@@ -39,14 +40,18 @@ import { useRouter } from "vue-router";
 import AppLoading from "@/components/app/AppLoading.vue";
 import AppError from "@/components/app/AppError.vue";
 import { useAxios } from "@/hooks/useAxios";
+import { useNumber } from "@/hooks/useNumber";
+import { computed, toRef } from "vue";
 
 const props = defineProps({
   id: String,
 });
 
 const router = useRouter();
-
-const { loading, err, data: post } = useAxios(`posts/${props.id}`);
+const url = computed(() => `posts/${props.id}`);
+const { loading, err, data: post } = useAxios(url);
+const idRef = toRef(props, "id");
+const { isOdd } = useNumber(idRef);
 /**
  * ref
  * 장) 한 번에 객체할당 가능

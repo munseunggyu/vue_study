@@ -6,6 +6,7 @@
       {{ createDate }}
     </p>
     <button @click.stop="$emit('modal')">😎</button>
+    <button @click.stop="$emit('preview', id)">🧐</button>
   </AppCard>
 </template>
 
@@ -21,12 +22,15 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  id: {
+    type: Number,
+    required: true,
+  },
   createAt: {
     type: [String, Date, Number],
   },
 });
-
-const emit = defineEmits(["modal"]);
+const emit = defineEmits(["modal", "preview"]);
 
 const dayjs = inject("dayjs");
 const createDate = computed(() => {

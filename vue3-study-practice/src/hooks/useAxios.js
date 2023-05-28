@@ -22,9 +22,8 @@ export function useAxios(url, config = {}, options = {}) {
   };
   loading.value = true;
   const execute = async (body) => {
-    console.log(body);
     try {
-      const res = await axios(url, {
+      const res = await axios(unref(url), {
         ...defaultConfig,
         ...config,
         params: unref(params),
@@ -44,7 +43,7 @@ export function useAxios(url, config = {}, options = {}) {
       loading.value = false;
     }
   };
-  if (isRef(params)) {
+  if (isRef(params) || isRef(url)) {
     watchEffect(execute);
   } else {
     if (immediate) {
